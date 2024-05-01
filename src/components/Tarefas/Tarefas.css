@@ -1,0 +1,18 @@
+.tarefas {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.tarefas li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.tarefas li:hover {
+    color: rgb(64, 64, 231);
+    transition: 0.1s;
+}

@@ -1,14 +1,9 @@
-/* eslint-disable jsx-a11y/control-has-associated-label */
 import React, { Component } from 'react';
 import './Main.css';
 
-// Form
-import { FaPlus } from 'react-icons/fa';
+import Form from './Form';
+import Tarefas from './Tarefas';
 
-// Tarefas
-import { FaEdit, FaWindowClose } from 'react-icons/fa';
-
-// Props abreviação de Propriedades
 export default class Main extends Component {
   state = {
     novaTarefa: '',
@@ -87,23 +82,17 @@ export default class Main extends Component {
       <div className="main">
         <h1>Lista de tarefa</h1>
 
-        <form action="#" className="form" onSubmit={this.handleSubmit}>
-          <input onChange={this.handleChange} type="text" value={novaTarefa} id="addTaskInput" />
-          <button type="submit"><FaPlus /></button>
-        </form>
+        <Form
+            handleSubmit={this.handleSubmit}
+            handleChange={this.handleChange}
+            novaTarefa={novaTarefa}
+        />
 
-        <ul className="tarefas">
-          {tarefas.map((tarefa, index) => (
-            <li key={tarefa}>
-              {tarefa}
-              <div className="editAndDelete">
-                <FaEdit className="edit" onClick={(evento) => this.handleEdit(evento, index)} />
-                <FaWindowClose className="delete" onClick={() => this.handleDelete(tarefa)} />
-              </div>
-              <div />
-            </li>
-          ))}
-        </ul>
+        <Tarefas
+            handleEdit={this.handleEdit}
+            handleDelete={this.handleDelete}
+            tarefas={tarefas}
+        />
 
       </div>
     );

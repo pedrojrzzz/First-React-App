@@ -29,6 +29,10 @@ module.exports = {
     'react/state-in-constructor': 'off',
     'react/no-unused-state': 'off',
     'import/no-duplicates': 'off',
-    'class-methods-use-this': 'off'
+    'class-methods-use-this': 'off',
+    'react/jsx-indent-props': 'off',
+    'jsx-a11y/control-has-associated-label': 'off',
+    'import/no-extraneous-dependencies': 'off',
+    'react/forbid-prop-types': 'off'
   },
 };
