@@ -8,13 +8,30 @@ import { FaPlus } from 'react-icons/fa';
 // Tarefas
 import { FaEdit, FaWindowClose } from 'react-icons/fa';
 
-// Propos abreviação de Propriedades
+// Props abreviação de Propriedades
 export default class Main extends Component {
   state = {
     novaTarefa: '',
     tarefas: [],
     index: -1,
   };
+
+  componentDidMount() {
+    const storedTasks = JSON.parse(localStorage.getItem('tasks'));
+    if (storedTasks === null) return;
+
+    this.setState({
+      tarefas: storedTasks,
+    });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { tarefas } = this.state;
+
+    if (tarefas === prevState.tarefas) return;
+
+    localStorage.setItem('tasks', JSON.stringify(tarefas));
+  }
 
   handleChange = (evento) => {
     this.setState({ // setState para definir estado
@@ -34,7 +51,7 @@ export default class Main extends Component {
         tarefas: [...tarefas, novaTarefa.trim()],
         novaTarefa: '',
       });
-    } else {
+    } else { // Editando uma task
       const novasTarefas = [...tarefas];
       novasTarefas[index] = novaTarefa;
 
@@ -64,7 +81,7 @@ export default class Main extends Component {
   };
 
   render() {
-    const { novaTarefa, tarefas } = this.state;
+    const { novaTarefa, tarefas } = this.state; // Props
 
     return (
       <div className="main">
