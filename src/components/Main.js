@@ -13,6 +13,7 @@ export default class Main extends Component {
   state = {
     novaTarefa: '',
     tarefas: [],
+    index: -1,
   };
 
   handleChange = (evento) => {
@@ -23,13 +24,42 @@ export default class Main extends Component {
 
   handleSubmit = (evento) => {
     evento.preventDefault();
-    const { novaTarefa, tarefas } = this.state;
+    const { novaTarefa, tarefas, index } = this.state;
 
     if (novaTarefa.length < 1) return;
     if (tarefas.indexOf(novaTarefa) !== -1) return; // Verificar se a tarefa já existe no array
+
+    if (index === -1) { // Criando task nova
+      this.setState({
+        tarefas: [...tarefas, novaTarefa.trim()],
+        novaTarefa: '',
+      });
+    } else {
+      const novasTarefas = [...tarefas];
+      novasTarefas[index] = novaTarefa;
+
+      this.setState({
+        tarefas: novasTarefas,
+        index: -1,
+      });
+    }
+  };
+
+  handleEdit = (evento, index) => {
+    const { tarefas } = this.state;
     this.setState({
-      tarefas: [...tarefas, novaTarefa.trim()],
-      novaTarefa: '',
+      index,
+      novaTarefa: tarefas[index],
+    });
+  };
+
+  handleDelete = (index) => {
+    const { tarefas } = this.state;
+    const position = tarefas.indexOf(index);
+    const newTasks = [...tarefas];
+    newTasks.splice(position, 1);
+    this.setState({
+      tarefas: newTasks,
     });
   };
 
@@ -46,12 +76,12 @@ export default class Main extends Component {
         </form>
 
         <ul className="tarefas">
-          {tarefas.map((tarefa) => (
+          {tarefas.map((tarefa, index) => (
             <li key={tarefa}>
               {tarefa}
               <div className="editAndDelete">
-                <FaEdit className="edit" />
-                <FaWindowClose className="delete" />
+                <FaEdit className="edit" onClick={(evento) => this.handleEdit(evento, index)} />
+                <FaWindowClose className="delete" onClick={() => this.handleDelete(tarefa)} />
               </div>
               <div />
             </li>

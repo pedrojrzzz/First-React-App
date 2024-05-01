@@ -28,6 +28,7 @@ module.exports = {
     'no-console': 'off',
     'react/state-in-constructor': 'off',
     'react/no-unused-state': 'off',
-    'import/no-duplicates': 'off'
+    'import/no-duplicates': 'off',
+    'class-methods-use-this': 'off'
   },
 };
